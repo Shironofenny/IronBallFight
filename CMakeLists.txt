@@ -1,11 +1,14 @@
 # CMake project file for W4160 Computer Graphics
 # Changxi Zheng (cxz@cs.columbia.edu)
-project(PA1)
+# ===============================================
+# Modified by Yihan Zhang
+project(IBF)
 
 cmake_minimum_required(VERSION 2.6.2 FATAL_ERROR)
 
 option(BUILD_DEBUG "Turn on the debug mode" OFF)
-#===================================================================
+
+# ===================================================================
 ## Compiler
 # set compiler flags for debug/release
 if ( BUILD_DEBUG )
@@ -16,15 +19,28 @@ else ()
     set(CMAKE_BUILD_TYPE Release)
 endif ()
 
+# set output executable path
+set (EXECUTABLE_OUTPUT_PATH ../bin)
+
+# add compiler flags
+set (CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+
+# add header files and source files
+file (GLOB IBF_HEADERS "./src/*.h")
+file (GLOB IBF_SOURCES "./src/*.cpp")
+
 # package for opengl and glut
-find_package(GLUT REQUIRED)
 find_package(OpenGL REQUIRED)
+if (OPENGL_FOUND)
+	include_directories (${OPENGL_INCLUDEDIR})
+	set (FECLOTH_LIBRARIES ${IBF_LIBRARIES} ${OPENGL_LIBRARIES})
+endif (OPENGL_FOUND)
 
-include_directories(${GLUT_INCLUDE_DIR})
+find_package(GLUT REQUIRED)
+if (GLUT_FOUND)
+	include_directories (${GLUT_INCLUDEDIR})
+	set (FECLOTH_LIBRARIES ${IBF_LIBRARIES} ${GLUT_LIBRARIES})
+endif (GLUT_FOUND)
 
-add_executable(pa1
-    src/main.cpp
-    src/trackball.h         src/trackball.cpp
-    src/GLScreenCapturer.h  src/GLScreenCapturer.cpp)
-target_link_libraries(pa1
-    ${GLUT_LIBRARIES}       ${OPENGL_LIBRARIES})
+add_executable(IronBallFight ${IBF_SOURCES})
+target_link_libraries(IronBallFight ${IBF_LIBRARIES})
