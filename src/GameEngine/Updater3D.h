@@ -1,19 +1,19 @@
-#ifndef __UPDATER2D_H__
-#define __UPDATER2D_H__
+#ifndef __UPDATER3D_H__
+#define __UPDATER3D_H__
 
 #include "Updater.h"
-#include "Scene2D.h"
+#include "Scene3D.h"
 #include <vector>
 
-class Updater2D : public Updater
+class Updater3D : public Updater
 {
 	public:
 
 		// Construction function
-		Updater2D(Scene2D & _scene);
+		Updater3D(Scene3D & _scene);
 
 		// Destroyer
-		~Updater2D() {}
+		~Updater3D() {}
 		
 		// Main function, ie. the entrance of the class.
 		void Update(double dt) override;
@@ -23,10 +23,7 @@ class Updater2D : public Updater
 		// A private copy of the scene. As it is a reference, 
 		// it will always trace and report any modifications
 		// made to the original scene.
-		Scene2D & mScene;
-
-		// Physics simulation should be proceeded here
-		void physicsProcess(double dt);
+		Scene3D & m_Scene;
 };
 
 #endif

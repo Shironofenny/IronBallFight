@@ -16,7 +16,7 @@ class Renderer : public IDimension
 
 		Renderer();
 
-		~Renderer();
+		virtual ~Renderer();
 
 		virtual void Render();
 };

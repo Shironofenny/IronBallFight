@@ -1,18 +1,15 @@
 #ifndef __ANIMATIONENGINE_H__
 #define __ANIMATIONENGINE_H__
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
-
 #include <vector>
 
 #include <iostream>
 
-#include "Updater2D.h"
-#include "Renderer2D.h"
-#include "../Color/ColorBoard.h"
-#include "../Mouse.h"
+#include "../GLHeader.h"
+#include "Updater3D.h"
+#include "Renderer3D.h"
+#include "SceneUtilities.h"
+#include "Utilities/FPSCounter.h"
 
 using namespace std;
 
@@ -22,7 +19,7 @@ using namespace std;
 // 
 // !! You should always starts from this class to modify any changes that
 // 		you want to show in your animation clips.
-class AnimationEngine
+class GameEngine
 {
 	public:
 		
@@ -31,14 +28,14 @@ class AnimationEngine
 		// TODO: Always modify it and add describing comments below this line.
 		//
 		// Usr comments starts from the following line:
-		AnimationEngine();
+		GameEngine();
 
 		// Destruction function
 		//
 		// TODO: Always remember to free any used pointers here to avoid memory leakage.
 		//
 		// Usr comments starts from the following line:
-		~AnimationEngine();
+		~GameEngine();
 
 		// Only use this function as external call for the whole physics engine.
 		// This function serves as the call back function for OpenGL
@@ -47,10 +44,10 @@ class AnimationEngine
 	private:
 
 		// Update function
-		void updateAnimation();
+		void updateGame();
 
 		// Render function
-		void renderAnimation();
+		void renderGame();
 
 		// System level codes ends here
 		//
@@ -59,13 +56,13 @@ class AnimationEngine
 		// Your code goes from here.
 		
 		// The scene class for the animation
-		Scene2D * mScene;
+		Scene3D * m_Scene;
 
 		// The updater class for the animation
-		Updater2D * mUpdater;
+		Updater3D * m_Updater;
 
 		// The renderer of the scene
-		Renderer2D * mRenderer;
+		Renderer3D * m_Renderer;
 	
 };
 

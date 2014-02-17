@@ -5,14 +5,14 @@ using namespace std;
 using namespace GLUTConfig;
 
 // The name of the animation engin.
-char const * gName = "Animation\0";
+char const * g_Name = "Animation\0";
 	
 // The engin of the whole syste
-AnimationEngine gEngine;
+GameEngine g_Engine;
 
 int main(int argc, char** argv)
 {
-	gInitializeEngine(&argc, argv, 960, 540, 150, 100);
-	gRun();
+	GLUTConfig::g_InitializeEngine(&argc, argv, 960, 540, 150, 100);
+	GLUTConfig::g_Run();
 	return 0;
 }

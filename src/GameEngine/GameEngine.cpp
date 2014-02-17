@@ -1,45 +1,45 @@
-#include "AnimationEngine.h"
+#include "GameEngine.h"
 
-AnimationEngine::AnimationEngine()
+GameEngine::GameEngine()
 {
 	// TODO: Revise the defination first, then add any initialization code you want below:
 	
-	mScene = new Scene2D();
-	//mScene->createScene();
-	mRenderer = new Renderer2D(*mScene);
-	mUpdater = new Updater2D(*mScene);
-	mScene->createScene();
+	m_Scene = new Scene3D();
+	//m_Scene->createScene();
+	m_Renderer = new Renderer3D(*m_Scene);
+	m_Updater = new Updater3D(*m_Scene);
+	m_Scene->createScene();
 }
 
-AnimationEngine::~AnimationEngine()
+GameEngine::~GameEngine()
 {
 	// TODO: Delete any allocated pointers here.
 	
-	delete mScene;
-	delete mRenderer;
-	delete mUpdater;
+	delete m_Scene;
+	delete m_Renderer;
+	delete m_Updater;
 }
 
-void AnimationEngine::run()
+void GameEngine::run()
 {
 	// TODO: Better not doing anything here.
 	
-	updateAnimation();
-	renderAnimation();
+	updateGame();
+	renderGame();
 }
 
-void AnimationEngine::updateAnimation()
+void GameEngine::updateGame()
 {
 	// TODO: Add any codes that related to updating datas here
 	// 	All calculations are recommended to be fulfilled here.
 	
-	mUpdater->Update(gDt);
+	m_Updater->Update(sceneUtility::gDt);
 }
 
-void AnimationEngine::renderAnimation()
+void GameEngine::renderGame()
 {
 	// TODO: Add any codes that are related drawing figures, add textures, etc.
 	// 	should be fulfilled here.
 	
-	mRenderer->Render();
+	m_Renderer->Render();
 }

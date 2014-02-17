@@ -26,20 +26,20 @@ set (EXECUTABLE_OUTPUT_PATH ../bin)
 set (CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
 
 # add header files and source files
-file (GLOB IBF_HEADERS "./src/*.h")
-file (GLOB IBF_SOURCES "./src/*.cpp")
+file (GLOB IBF_HEADERS "./src/*.h" "./src/GameEngine/*.h")
+file (GLOB IBF_SOURCES "./src/*.cpp" "./src/GameEngine/*.cpp")
 
 # package for opengl and glut
 find_package(OpenGL REQUIRED)
 if (OPENGL_FOUND)
 	include_directories (${OPENGL_INCLUDEDIR})
-	set (FECLOTH_LIBRARIES ${IBF_LIBRARIES} ${OPENGL_LIBRARIES})
+	set (IBF_LIBRARIES ${IBF_LIBRARIES} ${OPENGL_LIBRARIES})
 endif (OPENGL_FOUND)
 
 find_package(GLUT REQUIRED)
 if (GLUT_FOUND)
 	include_directories (${GLUT_INCLUDEDIR})
-	set (FECLOTH_LIBRARIES ${IBF_LIBRARIES} ${GLUT_LIBRARIES})
+	set (IBF_LIBRARIES ${IBF_LIBRARIES} ${GLUT_LIBRARIES})
 endif (GLUT_FOUND)
 
 add_executable(IronBallFight ${IBF_SOURCES})
