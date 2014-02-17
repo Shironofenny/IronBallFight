@@ -23,7 +23,7 @@ GameEngine::~GameEngine()
 void GameEngine::run()
 {
 	// TODO: Better not doing anything here.
-	
+	FPSCounter::getInstance().update();
 	updateGame();
 	renderGame();
 }
@@ -33,7 +33,7 @@ void GameEngine::updateGame()
 	// TODO: Add any codes that related to updating datas here
 	// 	All calculations are recommended to be fulfilled here.
 	
-	m_Updater->Update(sceneUtility::gDt);
+	m_Updater->Update(FPSCounter::getInstance().getTimeInterval());
 }
 
 void GameEngine::renderGame()
