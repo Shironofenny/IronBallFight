@@ -42,4 +42,5 @@ void GameEngine::renderGame()
 	// 	should be fulfilled here.
 	
 	m_Renderer->Render();
+	FPSCounter::getInstance().renderFPS();
 }

@@ -3,6 +3,13 @@
 extern char const * g_Name;
 extern GameEngine g_Engine;
 
+GLfloat camRotX, camRotY, camPosX, camPosY, camPosZ;
+GLfloat ambient[] = {0.2, 0.2, 0.8, 1.0};
+GLfloat position[] = {0.0, 0.0, 2.0, 1.0};
+GLfloat mat_diffuse[] = {0.6, 0.6, 0.6, 1.0};
+GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
+GLfloat mat_shininess[] = {50.0};
+
 void GLUTConfig::g_InitializeEngine(int * _argcp, char ** _argv, int _wWidth, int _wHeight, int _wPosX, int _wPosY)
 {
 	// Init GLUT window.
@@ -13,6 +20,28 @@ void GLUTConfig::g_InitializeEngine(int * _argcp, char ** _argv, int _wWidth, in
 	
 	// Name the animation window.
 	glutCreateWindow(g_Name);
+   
+  // <TBD>
+	camRotX = 20.0f;
+	camRotY = 680.0f;
+	camPosX = 0.0f;
+	camPosY = 0.0f;
+	camPosZ = -5.5f;
+	
+	glEnable( GL_DEPTH_TEST );
+	glShadeModel(GL_SMOOTH);
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+
+	//glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHT0);
+	
+	//glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+	//glLightfv(GL_LIGHT0, GL_POSITION, position);
+	
+	//glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	//glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	//glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	// </TBD>
 }
 
 bool GLUTConfig::g_CheckGLErrors()
@@ -32,26 +61,90 @@ bool GLUTConfig::g_CheckGLErrors()
 
 void GLUTConfig::g_InitializeDisplay()
 {
+	// Clear using black
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	glPushMatrix();
+	// <TBD>
+	// setup camera
+    glTranslatef(0, 0, camPosZ);
+    glRotatef(camRotX, 1, 0, 0);
+    glRotatef(camRotY, 0, 1, 0);
+		
+	float currentColor[4];
+	glGetFloatv(GL_CURRENT_COLOR, currentColor);
+	GLfloat selectedColor[] = {0, 1, 0, 1};
+    
+		glInitNames();
+    glPushName(0);
+    
+    // Draw two teapots next to each other in z axis
+    glPushMatrix();
+    {
+    		glColor4fv(selectedColor);
+        //glMaterialfv(GL_FRONT, GL_DIFFUSE, selectedColor);
+        glLoadName(0);
+
+    }
+    glPopMatrix();
+    
+		glColor4fv(currentColor);
+
+	glPopMatrix();
+	
+	// </TBD>
+	glFlush();
+	glutSwapBuffers();
 }
 
 void GLUTConfig::g_Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	g_Engine.run();
+	//g_Engine.run();
+	glPushMatrix();
+    glTranslatef(0, -0.5, camPosZ);
+    glRotatef(camRotX, 1, 0, 0);
+    //glRotatef(camRotY, 0, 1, 0);
+		GLfloat selectedColor[] = {0, 1, 0, 1};
+		glColor4fv(selectedColor);
+		//glMaterialfv(GL_FRONT, GL_DIFFUSE, selectedColor);
+		glutSolidCube(1.0);
+	glPopMatrix();
+	glFlush();
 	glutSwapBuffers();
+}
+
+void GLUTConfig::g_Reshape(int w,  int h)
+{
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	
+	// Set the clipping volume
+	gluPerspective(60.0f, (GLfloat)w / (GLfloat)h, 1.0f, 100.0f);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+void GLUTConfig::g_KeyboardPressed( unsigned char key, int x, int y )
+{
+	Keyboard::getInstance().updatePress(key);
+}
+
+void GLUTConfig::g_KeyboardReleased( unsigned char key, int x, int y )
+{
+	Keyboard::getInstance().updateRelease(key);
 }
 
 void GLUTConfig::g_Run()
 {
-	// Clear using black
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(45.0f, 16./9, 1.0, 100.0);
-
 	// Assign call back function
 	glutDisplayFunc(g_InitializeDisplay);
+	glutReshapeFunc(g_Reshape);
 	glutIdleFunc(g_Display);
+	glutKeyboardFunc(g_KeyboardPressed);
+	glutKeyboardUpFunc(g_KeyboardReleased);
 
 	glutMainLoop();
 }

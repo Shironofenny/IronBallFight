@@ -29,10 +29,19 @@ class FPSCounter
 		// Get frame per second.
 		double getFPS();
 
+		// Get frame per second in string mode.
+		char const * getFPSString();
+
+		// Render FPS in the screen.
+		void renderFPS();
+
 	private:
 
 		// Constructor
 		FPSCounter();
+
+		// Destructor
+		~FPSCounter();
 
 		// Prevent from any sort of creation of objects.
 		FPSCounter(FPSCounter const &);
@@ -46,5 +55,8 @@ class FPSCounter
 
 		// The time interval between two frames.
 		int m_TimeInterval;
+
+		// The string for FPS.
+		char * m_FPSString;
 };
 #endif
