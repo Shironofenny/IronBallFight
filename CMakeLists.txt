@@ -23,7 +23,7 @@ endif ()
 set (EXECUTABLE_OUTPUT_PATH ../bin)
 
 # add compiler flags
-set (CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+set (CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 # add header files and source files
 file (GLOB IBF_HEADERS "./src/*.h" "./src/GameEngine/*.h" "./src/GameEngine/Utilities/*.h" "./src/GameEngine/Interaction/*.h")

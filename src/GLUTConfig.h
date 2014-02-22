@@ -17,9 +17,6 @@ namespace GLUTConfig
 	// The initialization function.
 	void g_InitializeEngine(int * _argcp, char ** _argv, int _wWidth, int _wHeight, int _wPosX, int _wPosY);
 
-	// The call back function to fist display something (used in display)
-	void g_InitializeDisplay();
-
 	// The call back display function for glut (used in idle)
 	void g_Display();
 

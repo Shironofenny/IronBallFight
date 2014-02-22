@@ -17,6 +17,8 @@ class Sprite
 
 		// Render function. Simply call OpenGL to draw the sprite.
 		virtual void render();
+
+	protected:
 };
 
 #endif

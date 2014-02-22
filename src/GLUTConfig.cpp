@@ -10,6 +10,9 @@ GLfloat mat_diffuse[] = {0.6, 0.6, 0.6, 1.0};
 GLfloat mat_specular[] = {1.0, 1.0, 1.0, 1.0};
 GLfloat mat_shininess[] = {50.0};
 
+GLfloat m_Position[] = {0.5, 0.5, 0.5};
+GLfloat m_Camera[] ={0.0, 0.0, 0.0};
+
 void GLUTConfig::g_InitializeEngine(int * _argcp, char ** _argv, int _wWidth, int _wHeight, int _wPosX, int _wPosY)
 {
 	// Init GLUT window.
@@ -59,50 +62,24 @@ bool GLUTConfig::g_CheckGLErrors()
 	return true;
 }    
 
-void GLUTConfig::g_InitializeDisplay()
-{
-	// Clear using black
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	glPushMatrix();
-	// <TBD>
-	// setup camera
-    glTranslatef(0, 0, camPosZ);
-    glRotatef(camRotX, 1, 0, 0);
-    glRotatef(camRotY, 0, 1, 0);
-		
-	float currentColor[4];
-	glGetFloatv(GL_CURRENT_COLOR, currentColor);
-	GLfloat selectedColor[] = {0, 1, 0, 1};
-    
-		glInitNames();
-    glPushName(0);
-    
-    // Draw two teapots next to each other in z axis
-    glPushMatrix();
-    {
-    		glColor4fv(selectedColor);
-        //glMaterialfv(GL_FRONT, GL_DIFFUSE, selectedColor);
-        glLoadName(0);
-
-    }
-    glPopMatrix();
-    
-		glColor4fv(currentColor);
-
-	glPopMatrix();
-	
-	// </TBD>
-	glFlush();
-	glutSwapBuffers();
-}
-
 void GLUTConfig::g_Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//g_Engine.run();
+	
+	if(Keyboard::getInstance().isKeyDown('d'))
+		m_Position[0] += 0.1;
+	if(Keyboard::getInstance().isKeyDown('a'))
+		m_Position[0] -= 0.1;
+
+	if(Keyboard::getInstance().isKeyDown('w'))
+		m_Camera[1] +=0.1;
+	if(Keyboard::getInstance().isKeyDown('s'))
+		m_Camera[1] -=0.1;
+
 	glPushMatrix();
     glTranslatef(0, -0.5, camPosZ);
+		glTranslatef(m_Position[0], m_Position[1], m_Position[2]);
     glRotatef(camRotX, 1, 0, 0);
     //glRotatef(camRotY, 0, 1, 0);
 		GLfloat selectedColor[] = {0, 1, 0, 1};
@@ -110,6 +87,7 @@ void GLUTConfig::g_Display()
 		//glMaterialfv(GL_FRONT, GL_DIFFUSE, selectedColor);
 		glutSolidCube(1.0);
 	glPopMatrix();
+	
 	glFlush();
 	glutSwapBuffers();
 }
@@ -140,7 +118,7 @@ void GLUTConfig::g_KeyboardReleased( unsigned char key, int x, int y )
 void GLUTConfig::g_Run()
 {
 	// Assign call back function
-	glutDisplayFunc(g_InitializeDisplay);
+	glutDisplayFunc(g_Display);
 	glutReshapeFunc(g_Reshape);
 	glutIdleFunc(g_Display);
 	glutKeyboardFunc(g_KeyboardPressed);
