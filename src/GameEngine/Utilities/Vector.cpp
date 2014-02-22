@@ -7,7 +7,7 @@ Vector::Vector()
 	m_Position[2] = 0.0;
 }
 
-Vector::Vector(float x, float y, float z)
+Vector::Vector(double x, double y, double z)
 {
 	m_Position[0] = x;
 	m_Position[1] = y;
@@ -19,12 +19,12 @@ Vector::~Vector()
 
 }
 
-float & Vector::operator[](int _index)
+double & Vector::operator[](int _index)
 {
 	return m_Position[_index];
 }
 
-float const & Vector::operator[](int _index) const
+double const & Vector::operator[](int _index) const
 {
 	return m_Position[_index];
 }
@@ -62,12 +62,12 @@ Vector & Vector::operator -= (Vector const & _v)
 	return * this;
 }
 
-Vector Vector::operator * (float const _c) const
+Vector Vector::operator * (double const _c) const
 {
 	return Vector(m_Position[0] * _c, m_Position[1] * _c, m_Position[2] * _c);
 }
 
-float dot(Vector const & _v1, Vector const & _v2)
+double dot(Vector const & _v1, Vector const & _v2)
 {
 	return (_v1[0] * _v2[0] + _v1[1] * _v2[1] + _v1[2] * _v2[2]);
 }
@@ -79,7 +79,7 @@ Vector cross(Vector const & _v1, Vector const & _v2)
 								_v1[0] * _v2[1] - _v1[1] * _v2[0]);
 }
 
-void glTranslatev(Vector & v)
+void glTranslatev(Vector const & v)
 {
 	glTranslatef(v[0], v[1], v[2]);
 }

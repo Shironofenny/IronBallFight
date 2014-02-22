@@ -14,21 +14,21 @@ Quaternion::Quaternion( const Quaternion& q )
 
 }
 
-Quaternion::Quaternion( float _s, float _vi, float _vj, float _vk )
+Quaternion::Quaternion( double _s, double _vi, double _vj, double _vk )
 :m_Scalar( _s ),
  m_Vector( _vi, _vj, _vk )
 {
 
 }
 
-Quaternion::Quaternion( float _s, const Vector & _v )
+Quaternion::Quaternion( double _s, const Vector & _v )
 :m_Scalar( _s),
  m_Vector( _v )
 {
 
 }
 
-float & Quaternion::operator[]( int index )
+double & Quaternion::operator[]( int index )
 {
 	return ( &m_Scalar )[ index ];
 }
@@ -48,15 +48,15 @@ Quaternion Quaternion::operator-() const
 	return Quaternion( -m_Scalar, -m_Vector );
 }
 
-Quaternion Quaternion::operator*( float c ) const
+Quaternion Quaternion::operator*( double c ) const
 {
 	return Quaternion( m_Scalar*c, m_Vector*c );
 }
 
 Quaternion Quaternion::operator*( const Quaternion& q ) const
 {
-	const float & m_Scalar1( m_Scalar );
-	const float & m_Scalar2( q.m_Scalar );
+	const double & m_Scalar1( m_Scalar );
+	const double & m_Scalar2( q.m_Scalar );
 	const Vector & m_Vector1( m_Vector );
 	const Vector & m_Vector2( q.m_Vector );
 
