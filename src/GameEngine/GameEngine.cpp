@@ -5,7 +5,6 @@ GameEngine::GameEngine()
 	// TODO: Revise the defination first, then add any initialization code you want below:
 	
 	m_Scene = new Scene3D();
-	//m_Scene->createScene();
 	m_Renderer = new Renderer3D(*m_Scene);
 	m_Updater = new Updater3D(*m_Scene);
 	m_Scene->createScene();
@@ -42,5 +41,5 @@ void GameEngine::renderGame()
 	// 	should be fulfilled here.
 	
 	m_Renderer->Render();
-	FPSCounter::getInstance().renderFPS();
+	//FPSCounter::getInstance().renderFPS();
 }

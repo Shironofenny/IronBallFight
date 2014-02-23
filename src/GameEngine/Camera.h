@@ -2,6 +2,7 @@
 #define __CAMERA_H__
 
 #include "./Interaction/Keyboard.h"
+#include "./Interaction/Mouse.h"
 #include "./Utilities/Vector.h"
 #include "./Utilities/Quaternion.h"
 #include "./Utilities/ConstantHandler.h"
@@ -18,10 +19,10 @@ class Camera
 		Camera(Vector const & _initPos);
 		
 		// Construct with initial rotation only
-		Camera(Quaternion const & _initRot);
+		Camera(double const & _initRotX, double const & _initRotY);
 
 		// Construct with initial position and rotation
-		Camera(Vector const & _initPos, Quaternion const & _initRot);
+		Camera(Vector const & _initPos, double const & _initRotX, double const & _initRotY);
 
 		// Destructor
 		~Camera();
@@ -35,13 +36,31 @@ class Camera
 		// method.
 		void setup();
 
+		// Draw the reference axes of the camera
+		void drawAxes() const;
+
 	protected:
 
 		// The position of camera
 		Vector m_Position;
 
-		// The rotation of camera
+		// The X rotation of camera
+		double m_RotationX;
+
+		// The Y rotation of camera
+		double m_RotationY;
+
+		// The coordinate transformation quaternion
 		Quaternion m_Rotation;
+		
+		// The direction of the right hand of the camera, i.e. X direction
+		Vector m_CameraDirectionX;
+		
+		// The direction of the head of the camera, i.e. Y direction
+		Vector m_CameraDirectionY;
+
+		// The direction of the back of the camera, i.e. Z direction
+		Vector m_CameraDirectionZ;
 };
 
 #endif

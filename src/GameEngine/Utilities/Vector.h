@@ -3,6 +3,12 @@
 
 #include "../../GLHeader.h"
 
+#include <cmath>
+#include <assert.h>
+#include <iostream>
+
+#define _USE_MATH_DEFINES
+
 class Vector
 {
 	public:
@@ -15,6 +21,12 @@ class Vector
 
 		// Destructor
 		~Vector();
+
+		// Get the norm of the vector
+		double norm() const;
+
+		// Normalize the vector
+		void normalize();
 
 		// Get value using indicies
 		double & operator[] (int _index);
@@ -38,6 +50,15 @@ class Vector
 		// Scalar multiplication
 		Vector operator * (double const _c) const;
 
+		// Scalar multiplication and assign
+		Vector & operator *= (double const _c);
+
+		// Scalar division
+		Vector operator / (double const _c) const;
+
+		// Scalar division and assign
+		Vector & operator /= (double const _c);
+
 	private:
 
 		// Value of x, y, z
@@ -49,6 +70,9 @@ double dot(Vector const & _v1, Vector const & _v2);
 
 // Cross product of two vectors
 Vector cross(Vector const & _v1, Vector const & _v2);
+
+// Output vector using standard stream
+std::ostream & operator << (std::ostream & output, Vector & _v);
 
 // Override gltranslate function:
 void glTranslatev(Vector const & v);

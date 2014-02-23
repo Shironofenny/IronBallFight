@@ -19,9 +19,9 @@ class Renderer3D : public Renderer
 		~Renderer3D();
 
 		// Assign the dimension information
-		int getDimension() const override { return 3; };
+		int getDimension() const { return 3; };
 
-		void Render() override;
+		void Render();
 
 	private:
 

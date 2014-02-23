@@ -17,4 +17,10 @@ Renderer3D::~Renderer3D()
 
 void Renderer3D::Render()
 {
+	vector <Planet> & planets = m_Scene.getPlanets();
+
+	for(vector <Planet>::size_type i = 0; i < planets.size(); i++)
+	{
+		planets[i].render();
+	}
 }

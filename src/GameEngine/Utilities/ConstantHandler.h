@@ -16,7 +16,20 @@ class ConstantHandler
 		// Parse configuration from file
 		void parseConfiguration();
 
+		// Refresh the window size information
+		void restoreWindowSize(int x, int y);
+
 		double cameraSpeed;
+
+		int windowSizeX;
+
+		int windowSizeY;
+
+		int mousePositionX;
+
+		int mousePositionY;
+
+		double virtualRotationRadius;
 
 	private:
 

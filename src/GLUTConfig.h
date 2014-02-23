@@ -5,6 +5,8 @@
 #include "GLScreenCapturer.h"
 #include "./GameEngine/GameEngine.h"
 #include "./GameEngine/Interaction/Keyboard.h"
+#include "./GameEngine/Interaction/Mouse.h"
+#include "./GameEngine/Utilities/ConstantHandler.h"
 
 #include <iostream>
 using namespace std;
@@ -35,11 +37,14 @@ namespace GLUTConfig
 	// Keyboard releasing function
 	void g_KeyboardReleased( unsigned char key, int x, int y );
 
-	// Mouse function
+	// Mouse click function
 	void g_Mouse(int button, int state, int x, int y);
 
+	// Mouse click and move callback function
+	void g_MouseMove(int x, int y);
+
 	// Mouse passive callback function
-	void g_Passive();
+	void g_MousePassive(int x, int y);
 }
 
 #endif

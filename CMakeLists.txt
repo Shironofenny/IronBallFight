@@ -26,8 +26,8 @@ set (EXECUTABLE_OUTPUT_PATH ../bin)
 set (CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 # add header files and source files
-file (GLOB IBF_HEADERS "./src/*.h" "./src/GameEngine/*.h" "./src/GameEngine/Utilities/*.h" "./src/GameEngine/Interaction/*.h")
-file (GLOB IBF_SOURCES "./src/*.cpp" "./src/GameEngine/*.cpp" "./src/GameEngine/Utilities/*.cpp" "./src/GameEngine/Interaction/*.cpp")
+file (GLOB IBF_HEADERS "./src/*.h" "./src/GameEngine/*.h" "./src/GameEngine/Utilities/*.h" "./src/GameEngine/Interaction/*.h" "./src/GameEngine/Universe/*.h")
+file (GLOB IBF_SOURCES "./src/*.cpp" "./src/GameEngine/*.cpp" "./src/GameEngine/Utilities/*.cpp" "./src/GameEngine/Interaction/*.cpp", "./src/GameEngine/Universe/*.cpp")
 
 # package for opengl and glut
 find_package(OpenGL REQUIRED)

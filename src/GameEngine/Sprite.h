@@ -1,12 +1,17 @@
 #ifndef __SPRITE_H__
 #define __SPRITE_H__
 
+#include "./Utilities/Vector.h"
+
 class Sprite
 {
 	public:
 
 		// Constructor.
 		Sprite();
+		
+		// Constructor.
+		Sprite(Vector const & _position);
 
 		// Virtual destructor.
 		virtual ~Sprite();
@@ -19,6 +24,8 @@ class Sprite
 		virtual void render();
 
 	protected:
+
+		Vector m_Position;
 };
 
 #endif

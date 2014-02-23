@@ -20,9 +20,12 @@ void GLUTConfig::g_InitializeEngine(int * _argcp, char ** _argv, int _wWidth, in
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowSize(_wWidth, _wHeight);
 	glutInitWindowPosition(_wPosX, _wPosY);
-	
+
 	// Name the animation window.
 	glutCreateWindow(g_Name);
+
+	// Set the cursor to invisible
+	glutSetCursor(GLUT_CURSOR_NONE);	
    
   // <TBD>
 	camRotX = 20.0f;
@@ -35,16 +38,18 @@ void GLUTConfig::g_InitializeEngine(int * _argcp, char ** _argv, int _wWidth, in
 	glShadeModel(GL_SMOOTH);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 
-	//glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
+	/*
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	
-	//glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
-	//glLightfv(GL_LIGHT0, GL_POSITION, position);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	
-	//glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	//glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	//glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 	// </TBD>
+	// */
 }
 
 bool GLUTConfig::g_CheckGLErrors()
@@ -65,19 +70,42 @@ bool GLUTConfig::g_CheckGLErrors()
 void GLUTConfig::g_Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//g_Engine.run();
+	
+	if(Keyboard::getInstance().isKeyDown('f'))
+		glutFullScreen();
+	if(Keyboard::getInstance().isKeyDown('r'))
+	{
+		glutReshapeWindow(960, 540);
+		glutPositionWindow(150, 100);
+	}
+	if(Keyboard::getInstance().isKeyDown(27))
+		exit(0);
 	
 	FPSCounter::getInstance().update();	
 	camera.update(FPSCounter::getInstance().getTimeInterval());
 	
 	glPushMatrix();
-    glTranslatef(0, -0.5, camPosZ);
+
 		camera.setup();
-    //glRotatef(camRotX, 1, 0, 0);
+
 		GLfloat selectedColor[] = {0, 1, 0, 1};
 		glColor4fv(selectedColor);
 		//glMaterialfv(GL_FRONT, GL_DIFFUSE, selectedColor);
+		
 		glutSolidCube(1.0);
+		glColor3d(1., 0., 0.);
+		glPushMatrix();
+			glTranslated(1., 0., -1.);
+			glutSolidCube(1.0);
+		glPopMatrix();
+		glColor3d(0., 0., 1.);
+		glPushMatrix();
+			glTranslated(1., 1., -5.);
+			glutSolidCube(1.0);
+		glPopMatrix();
+		
+		g_Engine.run();
+
 	glPopMatrix();
 	
 	glFlush();
@@ -87,6 +115,9 @@ void GLUTConfig::g_Display()
 void GLUTConfig::g_Reshape(int w,  int h)
 {
 	glViewport(0, 0, w, h);
+
+	ConstantHandler::getInstance().restoreWindowSize(w, h);
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
@@ -107,6 +138,14 @@ void GLUTConfig::g_KeyboardReleased( unsigned char key, int x, int y )
 	Keyboard::getInstance().updateRelease(key);
 }
 
+void GLUTConfig::g_MousePassive(int x, int y)
+{
+	Mouse::getInstance().updatePassive(x, y);
+	if(Mouse::getInstance().isOnBoundary())
+		glutWarpPointer(ConstantHandler::getInstance().mousePositionX, \
+										ConstantHandler::getInstance().mousePositionY);
+}
+
 void GLUTConfig::g_Run()
 {
 	// Assign call back function
@@ -115,6 +154,10 @@ void GLUTConfig::g_Run()
 	glutIdleFunc(g_Display);
 	glutKeyboardFunc(g_KeyboardPressed);
 	glutKeyboardUpFunc(g_KeyboardReleased);
+	glutPassiveMotionFunc(g_MousePassive);
+
+	glutWarpPointer(ConstantHandler::getInstance().mousePositionX, \
+									ConstantHandler::getInstance().mousePositionY);
 
 	glutMainLoop();
 }
