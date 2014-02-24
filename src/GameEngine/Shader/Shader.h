@@ -3,6 +3,7 @@
 
 #include "../../GLHeader.h"
 #include "../Utilities/ConstantHandler.h"
+#include "../Utilities/Vector.h"
 
 #include <string>
 #include <fstream>
@@ -21,6 +22,12 @@ class Shader
 
 		// Create the program and link two corresponding shaders
 		void initialize(std::string _runDir);
+
+		// Attribute float value to shader
+		void attributeFloat(char const * _name, GLfloat const _value);
+		
+		// Attribute vec3 value to shader
+		void attributeVec3(char const * _name, Vector const & _value);
 	
 	private:
 

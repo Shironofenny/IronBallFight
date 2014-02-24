@@ -3,6 +3,7 @@
 
 #include "Renderer.h"
 #include "Scene3D.h"
+#include "./Shader/Shader.h"
 
 class Renderer3D : public Renderer
 {

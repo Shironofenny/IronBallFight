@@ -28,6 +28,18 @@ void Shader::initialize(std::string _runDir)
 	glUseProgram(m_ProgramHandle);
 }
 
+void Shader::attributeFloat(char const * _name, GLfloat const _value)
+{
+	GLint location = glGetAttribLocation(m_ProgramHandle, _name);
+	glVertexAttrib1f(location, _value);
+}
+
+void Shader::attributeVec3(char const * _name, Vector const & _value)
+{
+	GLint location = glGetAttribLocation(m_ProgramHandle, _name);
+	glVertexAttrib3f(location, (GLfloat)_value[0], (GLfloat)_value[1], (GLfloat) _value[2]);
+}
+
 void Shader::loadShader(GLuint _shader, std::string _filename)
 {
 	std::fstream infile;

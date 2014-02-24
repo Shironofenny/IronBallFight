@@ -2,7 +2,8 @@
 
 Scene3D::Scene3D():
 	Scene(), 
-	m_IronBall()
+	m_IronBall(), 
+	m_LightSource(ConstantHandler::getInstance().lightSource)
 {
 }
 
@@ -41,4 +42,9 @@ vector <Planet> & Scene3D::getPlanets()
 IronBall & Scene3D::getIronBall()
 {
 	return m_IronBall;
+}
+
+Vector & Scene3D::getLightPosition()
+{
+	return m_LightSource;
 }

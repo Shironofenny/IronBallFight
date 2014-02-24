@@ -4,6 +4,7 @@
 #include "../Utilities/ConstantHandler.h"
 #include "../Utilities/OBJLoader.h"
 #include "../Sprite.h"
+#include "../Shader/Shader.h"
 
 class IronBall : public Sprite
 {
@@ -24,12 +25,23 @@ class IronBall : public Sprite
 		// Update function
 		void update(double dt);
 
+		// Set the rotation center to be around this iron ball
+		// Called before camera is set.
+		void setRotationCenter();
+
 		// Render function
 		void render();
 
 	private:
 
-		GLuint m_TextureNumber;
+		// The shape handle of body
+		GLuint m_Body;
+
+		// The shape handle of ear
+		GLuint m_Ears;
+
+		// The shape handle of motor
+		GLuint m_Motor;
 };
 
 #endif

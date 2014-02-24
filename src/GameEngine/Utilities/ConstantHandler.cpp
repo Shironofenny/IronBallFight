@@ -1,6 +1,7 @@
 #include "ConstantHandler.h"
 
-ConstantHandler::ConstantHandler()
+ConstantHandler::ConstantHandler():
+	lightSource()
 {
 	cameraSpeed = 3.0;
 	cameraRotateZ = 0.2;
@@ -16,6 +17,10 @@ ConstantHandler::ConstantHandler()
 	ironBallPosition[0] = 0;
 	ironBallPosition[1] = -0.7;
 	ironBallPosition[2] = -2.5;
+
+	lightSource[0] = 0.0;
+	lightSource[1] = 0.0;
+	lightSource[2] = 0.0;
 }
 
 void ConstantHandler::restoreWindowSize(int x, int y)

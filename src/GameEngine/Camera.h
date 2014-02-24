@@ -39,6 +39,22 @@ class Camera
 		// Draw the reference axes of the camera
 		void drawAxes() const;
 
+		// Get the current position of the camera
+		Vector & getCameraPosition();
+		Vector const & getCameraPosition() const;
+
+		// Get camera coordinate x
+		Vector & getCameraCoordinateX();
+		Vector const & getCameraCoordinateX() const;
+
+		// Get camera coordinate y
+		Vector & getCameraCoordinateY();
+		Vector const & getCameraCoordinateY() const;
+
+		// Get camera coordinate z
+		Vector & getCameraCoordinateZ();
+		Vector const & getCameraCoordinateZ() const;
+
 	protected:
 
 		// Pointwise rotate update function. May not preserve with mouse location

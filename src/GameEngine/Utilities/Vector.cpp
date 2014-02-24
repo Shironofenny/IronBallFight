@@ -33,6 +33,25 @@ void Vector::normalize()
 	*this = (*this)/normalized;
 }
 
+Vector Vector::transform(GLfloat _matrix[16])
+{
+	Vector output;
+
+	output[0] = _matrix[0] * m_Position[0] + _matrix[4] * m_Position[1] \
+						+ _matrix[8] * m_Position[2] + _matrix[12];
+	output[1] = _matrix[1] * m_Position[0] + _matrix[5] * m_Position[1] \
+						+ _matrix[9] * m_Position[2] + _matrix[13];
+	output[2] = _matrix[2] * m_Position[0] + _matrix[6] * m_Position[1] \
+						+ _matrix[10] * m_Position[2] + _matrix[14];
+
+	return output;
+}
+
+Vector Vector::projection(Vector const & _coordx, Vector const & _coordy, Vector const & _coordz)
+{
+	return Vector(dot((*this), _coordx), dot((*this), _coordy), dot((*this), _coordz));
+}
+
 double & Vector::operator[](int _index)
 {
 	return m_Position[_index];
@@ -114,7 +133,7 @@ Vector cross(Vector const & _v1, Vector const & _v2)
 								_v1[0] * _v2[1] - _v1[1] * _v2[0]);
 }
 
-std::ostream & operator << (std::ostream & output, Vector & _v)
+std::ostream & operator << (std::ostream & output, Vector const & _v)
 {
 	output<<"x: "<<_v[0]<<"\ty: "<<_v[1]<<"\tz: "<<_v[2];
 	return output;

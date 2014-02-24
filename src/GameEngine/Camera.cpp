@@ -201,3 +201,43 @@ void Camera::drawAxes() const
 		glEnd();
 	glPopMatrix();
 }
+
+Vector & Camera::getCameraPosition()
+{
+	return m_Position;
+}
+
+Vector const & Camera::getCameraPosition() const
+{
+	return m_Position;
+}
+
+Vector & Camera::getCameraCoordinateX()
+{
+	return m_CameraDirectionX;
+}
+
+Vector const & Camera::getCameraCoordinateX() const
+{
+	return m_CameraDirectionX;
+}
+
+Vector & Camera::getCameraCoordinateY()
+{
+	return m_CameraDirectionY;
+}
+
+Vector const & Camera::getCameraCoordinateY() const
+{
+	return m_CameraDirectionY;
+}
+
+Vector & Camera::getCameraCoordinateZ()
+{
+	return m_CameraDirectionZ;
+}
+
+Vector const & Camera::getCameraCoordinateZ() const
+{
+	return m_CameraDirectionZ;
+}

@@ -1,19 +1,25 @@
-attribute float isOuterLightSource;
+# version 130
+
 attribute vec3 lightSource;
 
-vec3 lightDir = vec3(0.707, 0.707, 0);
-varying float intensity;
+varying float spotlightIntensity;
+
+vec4 vertexNew;
+vec3 normalNew;
 
 void main()
 {
-	if(isOuterLightSource == 0.0)
-	{
-		gl_Position = ftransform();
-		intensity = dot(lightDir, gl_Normal);
-	}
-	else
-	{
+	gl_Position = ftransform();
 
-	}
+	vertexNew = gl_ModelViewMatrix * gl_Vertex;
+	normalNew = gl_NormalMatrix * gl_Normal;
+
+	vec3 distance = lightSource - (vertexNew.xyz / vertexNew.w);
+	vec3 dv = normalize(distance);
+
+	float attenuation = 0.5 * (dv.x + dv.y + dv.z) / (distance.x + distance.y + distance.z);
+
+	spotlightIntensity = dot(distance, normalNew) * attenuation;
+	
 	gl_FrontColor = gl_Color;
 }

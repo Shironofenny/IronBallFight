@@ -26,3 +26,13 @@ void Sprite::render()
 {
 
 }
+
+Vector & Sprite::getPosition()
+{
+	return m_Position;
+}
+
+Vector const & Sprite::getPosition() const
+{
+	return m_Position;
+}

@@ -23,6 +23,10 @@ class Sprite
 		// Render function. Simply call OpenGL to draw the sprite.
 		virtual void render();
 
+		// Get the position of the sprite
+		Vector & getPosition();
+		Vector const & getPosition() const;
+
 	protected:
 
 		Vector m_Position;

@@ -28,6 +28,12 @@ class Vector
 		// Normalize the vector
 		void normalize();
 
+		// Transform using OpenGL matrix
+		Vector transform(GLfloat _matrix[16]);
+
+		// Project a this vector into a new basis defined by _coord x, y, z, and get a new vector
+		Vector projection(Vector const & _coordx, Vector const & _coordy, Vector const & _coordz);
+
 		// Get value using indicies
 		double & operator[] (int _index);
 		double const & operator[] (int _index) const;
@@ -62,7 +68,7 @@ class Vector
 	private:
 
 		// Value of x, y, z
-		double m_Position[3]; 
+		double m_Position[3];
 };
 
 // Dot product of two vectors
@@ -72,7 +78,7 @@ double dot(Vector const & _v1, Vector const & _v2);
 Vector cross(Vector const & _v1, Vector const & _v2);
 
 // Output vector using standard stream
-std::ostream & operator << (std::ostream & output, Vector & _v);
+std::ostream & operator << (std::ostream & output, Vector const & _v);
 
 // Override gltranslate function:
 void glTranslatev(Vector const & v);

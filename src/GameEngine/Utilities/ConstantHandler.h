@@ -44,6 +44,9 @@ class ConstantHandler
 
 		std::string fragmentShader;
 
+		// The position of the light source
+		Vector lightSource;
+
 	private:
 
 		// Private constructor

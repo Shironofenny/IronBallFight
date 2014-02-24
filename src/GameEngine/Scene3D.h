@@ -44,6 +44,9 @@ class Scene3D : public Scene
 		// Get a copy of all the planets
 		vector <Planet> & getPlanets();
 
+		// Return the position of the light source
+		Vector & getLightPosition();
+
 	protected:
 	
 		// The main camera of this 3D scene
@@ -54,6 +57,9 @@ class Scene3D : public Scene
 
 		// The vector for all the planets around you
 		vector <Planet> m_Planets;
+
+		// The position of the light source
+		Vector m_LightSource;
 };
 
 #endif
