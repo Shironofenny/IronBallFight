@@ -1,6 +1,9 @@
 #ifndef __CONSTANTHANDLER_H__
 #define __CONSTANTHANDLER_H__
 
+#include <string>
+#include "../Utilities/Vector.h"
+
 // Class to handle all constant definition
 class ConstantHandler
 {
@@ -19,7 +22,12 @@ class ConstantHandler
 		// Refresh the window size information
 		void restoreWindowSize(int x, int y);
 
+		// The relative position of the iron ball
+		Vector ironBallPosition;
+
 		double cameraSpeed;
+
+		double cameraRotateZ;
 
 		int windowSizeX;
 
@@ -30,6 +38,11 @@ class ConstantHandler
 		int mousePositionY;
 
 		double virtualRotationRadius;
+
+		// Shader configs
+		std::string vertexShader;
+
+		std::string fragmentShader;
 
 	private:
 

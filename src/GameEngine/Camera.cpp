@@ -11,6 +11,8 @@ Camera::Camera():
 {
 	m_RotationX = 0.0;
 	m_RotationY = 0.0;
+	m_AccumulateX = 0;
+	m_AccumulateY = 0;
 }
 
 Camera::Camera(Vector const & _initPos):
@@ -23,6 +25,8 @@ Camera::Camera(Vector const & _initPos):
 {
 	m_RotationX = 0.0;
 	m_RotationY = 0.0;
+	m_AccumulateX = 0;
+	m_AccumulateY = 0;
 }
 
 Camera::Camera(double const & _initRotX, double const & _initRotY):
@@ -34,7 +38,8 @@ Camera::Camera(double const & _initRotX, double const & _initRotY):
 	m_CameraDirectionY(0., 1., 0.), 
 	m_CameraDirectionZ(0., 0., -1.)
 {
-
+	m_AccumulateX = 0;
+	m_AccumulateY = 0;
 }
 
 Camera::Camera(Vector const & _initPos, double const & _initRotX, double const & _initRotY):
@@ -46,7 +51,8 @@ Camera::Camera(Vector const & _initPos, double const & _initRotX, double const &
 	m_CameraDirectionY(0., 1., 0.), 
 	m_CameraDirectionZ(0., 0., -1.)
 {
-
+	m_AccumulateX = 0;
+	m_AccumulateY = 0;
 }
 
 Camera::~Camera()
@@ -56,38 +62,23 @@ Camera::~Camera()
 
 void Camera::update(double dt)
 {
-	/*
-	double angleX = -(double) Mouse::getInstance().getDifferenceY() / ConstantHandler::getInstance().windowSizeY / ConstantHandler::getInstance().virtualRotationRadius;
-	double angleY = -(double) Mouse::getInstance().getDifferenceX() / ConstantHandler::getInstance().windowSizeX / ConstantHandler::getInstance().virtualRotationRadius;
+	pointwiseRotation(dt);
+	//globalRotation(dt);
+}
 
-	m_RotationX += angleX;
-	m_RotationY += angleY;
-
-	m_RotationX = m_RotationX > 2 * M_PI ? m_RotationX - 2 * M_PI : m_RotationX;
-	m_RotationY = m_RotationY > 2 * M_PI ? m_RotationY - 2 * M_PI : m_RotationY;
-
-	m_CameraDirectionX[0] = cos(m_RotationY);
- 	m_CameraDirectionX[1] =	0.;
- 	m_CameraDirectionX[2] = -sin(m_RotationY);
-	
-	m_CameraDirectionZ[0] = -sin(m_RotationY) * cos(m_RotationX);
- 	m_CameraDirectionZ[1] =	sin(m_RotationX);
- 	m_CameraDirectionZ[2] = -cos(m_RotationY) * cos(m_RotationX);
-
-	m_CameraDirectionY = cross(m_CameraDirectionX, m_CameraDirectionZ);
-*/
-
-	double diffx = (double) Mouse::getInstance().getDifferenceX() / ConstantHandler::getInstance().windowSizeY;
-	double diffy = -(double) Mouse::getInstance().getDifferenceY() / ConstantHandler::getInstance().windowSizeY;
-
+void Camera::pointwiseRotation(double dt)
+{
+	// Rotate the base directions using previous rotation
 	m_CameraDirectionX = ((m_Rotation*Quaternion(0., 1., 0., 0.))*m_Rotation.conj()).im();
 	m_CameraDirectionY = ((m_Rotation*Quaternion(0., 0., 1., 0.))*m_Rotation.conj()).im();
 	m_CameraDirectionZ = ((m_Rotation*Quaternion(0., 0., 0., 1.))*m_Rotation.conj()).im();
 
+	// Make sure that they are normalized
 	m_CameraDirectionX.normalize();
 	m_CameraDirectionY.normalize();
 	m_CameraDirectionZ.normalize();
 
+	// Translate camera
 	if(Keyboard::getInstance().isKeyDown('w'))
 		m_Position += m_CameraDirectionY * ConstantHandler::getInstance().cameraSpeed * dt;
 	if(Keyboard::getInstance().isKeyDown('s'))
@@ -99,21 +90,37 @@ void Camera::update(double dt)
 
 	if(Keyboard::getInstance().isKeyDown(' '))
 		m_Position -= m_CameraDirectionZ * ConstantHandler::getInstance().cameraSpeed * dt * 2;
+	if(Keyboard::getInstance().isKeyDown('f'))
+		m_Position += m_CameraDirectionZ * ConstantHandler::getInstance().cameraSpeed * dt;
 	
+	// Extra Z direction rotation if applicable
+	if(Keyboard::getInstance().isKeyDown('e'))
+	{
+		Quaternion dqz = Quaternion(cos(ConstantHandler::getInstance().cameraRotateZ * dt / 2), \
+										m_CameraDirectionZ * sin(ConstantHandler::getInstance().cameraRotateZ * dt / 2));
+		m_Rotation = dqz * m_Rotation;
+	}
+	if(Keyboard::getInstance().isKeyDown('q'))
+	{
+		Quaternion dqz = Quaternion(cos(-ConstantHandler::getInstance().cameraRotateZ * dt / 2), \
+										m_CameraDirectionZ * sin(-ConstantHandler::getInstance().cameraRotateZ * dt / 2));
+		m_Rotation = dqz * m_Rotation;
+	}
+
+	// Calculate the difference in x and y direction
+	double diffx = (double) Mouse::getInstance().getDifferenceX() / ConstantHandler::getInstance().windowSizeY;
+	double diffy = -(double) Mouse::getInstance().getDifferenceY() / ConstantHandler::getInstance().windowSizeY;
+
+	// If there is no move, stops here.
 	if (diffx == 0 && diffy == 0) return;
 	
+	// Calculate the exact mouse move vector
 	Vector mouseMove = m_CameraDirectionX * diffx + m_CameraDirectionY * diffy;
 
 	// Calculate the direction that the rotation is about
 	Vector rotateCenter = -cross(m_CameraDirectionZ, mouseMove);
 
-	std::cout<<"X direction: "<<m_CameraDirectionX<<std::endl;
-	std::cout<<"Y direction: "<<m_CameraDirectionY<<std::endl;
-	std::cout<<"Z direction: "<<m_CameraDirectionZ<<std::endl;
-
 	rotateCenter.normalize();
-
-	std::cout<<"Rotate Center: "<<rotateCenter<<std::endl<<std::endl;
 
 	// Calculate the rotation angle
 	double angle = atan(sqrt(diffx * diffx + diffy * diffy) / ConstantHandler::getInstance().virtualRotationRadius);
@@ -121,41 +128,49 @@ void Camera::update(double dt)
 	// Assembly the quaternion
 	Quaternion dq = Quaternion(cos(angle/2), rotateCenter * sin(angle/2));
 
+	// Be Cautious about the order!
 	m_Rotation = dq * m_Rotation;
+}
 
-/*
-	// Assembly the 3D mouse move vector in world corrdinate
+void Camera::globalRotation(double dt)
+{
+	m_AccumulateX += -Mouse::getInstance().getDifferenceX();
+	m_AccumulateY += -Mouse::getInstance().getDifferenceY();
 
-	// Calculate the direction that the rotation is about
-	Vector rotateCenter = -cross(m_BackDirection, mouseMove);
-	rotateCenter.normalize();
+	std::cout<<m_AccumulateX<<'\t'<<m_AccumulateY<<std::endl;
 
-	// Calculate the rotation angle
-	double angle = atan(sqrt(diffx * diffx + diffy * diffy) / ConstantHandler::getInstance().virtualRotationRadius);
+	double angleX = m_AccumulateX / ConstantHandler::getInstance().virtualRotationRadius / ConstantHandler::getInstance().windowSizeX;
+	double angleY = m_AccumulateY / ConstantHandler::getInstance().virtualRotationRadius / ConstantHandler::getInstance().windowSizeY;
+	
+	Quaternion dqx = Quaternion(cos(angleX/2), Vector(0., 1., 0.) * sin(angleX/2));
 
-	// Assembly the quaternion
-	Quaternion dq = Quaternion(cos(angle/2), rotateCenter * sin(angle/2));
+	m_CameraDirectionX = ((m_Rotation*Quaternion(0., 1., 0., 0.))*m_Rotation.conj()).im();
+	m_CameraDirectionY = ((m_Rotation*Quaternion(0., 0., 1., 0.))*m_Rotation.conj()).im();
+	m_CameraDirectionZ = ((m_Rotation*Quaternion(0., 0., 0., 1.))*m_Rotation.conj()).im();
 
-	std::cout<<Mouse::getInstance().getPositionX()<<'\t'<<Mouse::getInstance().getPositionY()<<std::endl;
+	m_CameraDirectionX.normalize();
+	m_CameraDirectionY.normalize();
+	m_CameraDirectionZ.normalize();
 
-	// Update three base vectors in camera coordinate
-	m_BackDirection = ((dq*Quaternion(0, m_BackDirection))*dq.conj()).im();
-	m_HeadDirection = ((dq*Quaternion(0, m_HeadDirection))*dq.conj()).im();
-	m_RightDirection = ((dq*Quaternion(0, m_RightDirection))*dq.conj()).im();
+	Quaternion dqy = Quaternion(cos(angleY/2), m_CameraDirectionX * sin(angleY/2));
 
+	m_Rotation = dqy * dqx;
+	
+	if(Keyboard::getInstance().isKeyDown('w'))
+		m_Position += m_CameraDirectionY * ConstantHandler::getInstance().cameraSpeed * dt;
+	if(Keyboard::getInstance().isKeyDown('s'))
+		m_Position -= m_CameraDirectionY * ConstantHandler::getInstance().cameraSpeed * dt;
+	if(Keyboard::getInstance().isKeyDown('a'))
+		m_Position -= m_CameraDirectionX * ConstantHandler::getInstance().cameraSpeed * dt;
+	if(Keyboard::getInstance().isKeyDown('d'))
+		m_Position += m_CameraDirectionX * ConstantHandler::getInstance().cameraSpeed * dt;
 
-	// Update the rotation quaternion
-	m_Rotation *= dq;
-*/
+	if(Keyboard::getInstance().isKeyDown(' '))
+		m_Position -= m_CameraDirectionZ * ConstantHandler::getInstance().cameraSpeed * dt * 2;
 }
 
 void Camera::setup()
 {
-	//glTranslatev((-m_Position));
-	drawAxes();
-
-	//glRotated(-m_RotationX / M_PI * 180, 1., 0., 0.);
-	//glRotated(-m_RotationY / M_PI * 180, 0., 1., 0.);
 	glRotated(-m_Rotation.getAngle() * 180/ M_PI, m_Rotation.getVector()[0],\
 		 				m_Rotation.getVector()[1], m_Rotation.getVector()[2]);
 

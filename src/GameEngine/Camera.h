@@ -41,6 +41,12 @@ class Camera
 
 	protected:
 
+		// Pointwise rotate update function. May not preserve with mouse location
+		void pointwiseRotation(double dt);
+
+		// Global rotate update function. Not mathematically true
+		void globalRotation(double dt);
+
 		// The position of camera
 		Vector m_Position;
 
@@ -61,6 +67,12 @@ class Camera
 
 		// The direction of the back of the camera, i.e. Z direction
 		Vector m_CameraDirectionZ;
+
+		// The accumulative mouse move X
+		int m_AccumulateX;
+
+		// The accumulative mouse move Y
+		int m_AccumulateY;
 };
 
 #endif

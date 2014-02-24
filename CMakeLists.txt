@@ -25,9 +25,9 @@ set (EXECUTABLE_OUTPUT_PATH ../bin)
 # add compiler flags
 set (CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
-# add header files and source files
-file (GLOB IBF_HEADERS "./src/*.h" "./src/GameEngine/*.h" "./src/GameEngine/Utilities/*.h" "./src/GameEngine/Interaction/*.h" "./src/GameEngine/Universe/*.h")
-file (GLOB IBF_SOURCES "./src/*.cpp" "./src/GameEngine/*.cpp" "./src/GameEngine/Utilities/*.cpp" "./src/GameEngine/Interaction/*.cpp", "./src/GameEngine/Universe/*.cpp")
+# add header files and source files (as there are some file I don't want to compile, I did not use recursive mode)
+file (GLOB IBF_HEADERS "./src/*.h" "./src/GameEngine/*.h" "./src/GameEngine/Utilities/*.h" "./src/GameEngine/Interaction/*.h" "./src/GameEngine/Universe/*.h" "./src/GameEngine/Shader/*.h")
+file (GLOB IBF_SOURCES "./src/*.cpp" "./src/GameEngine/*.cpp" "./src/GameEngine/Utilities/*.cpp" "./src/GameEngine/Interaction/*.cpp", "./src/GameEngine/Universe/*.cpp" "./src/GameEngine/Shader/*.cpp")
 
 # package for opengl and glut
 find_package(OpenGL REQUIRED)
@@ -42,5 +42,13 @@ if (GLUT_FOUND)
 	set (IBF_LIBRARIES ${IBF_LIBRARIES} ${GLUT_LIBRARIES})
 endif (GLUT_FOUND)
 
+find_package(GLEW REQUIRED)
+if (GLEW_FOUND)
+	include_directories (${GLEW_INCLUDEDIR})
+	set (IBF_LIBRARIES ${IBF_LIBRARIES} ${GLEW_LIBRARIES})
+endif (GLEW_FOUND)
+
 add_executable(IronBallFight ${IBF_SOURCES})
 target_link_libraries(IronBallFight ${IBF_LIBRARIES})
+
+file (COPY "./src/GameEngine/Shader/vertex.shader" "./src/GameEngine/Shader/fragment.shader" DESTINATION ../bin/shader)

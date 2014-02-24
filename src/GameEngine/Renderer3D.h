@@ -1,10 +1,6 @@
 #ifndef __RENDERER3D_H__
 #define __RENDERER3D_H__
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
-
 #include "Renderer.h"
 #include "Scene3D.h"
 

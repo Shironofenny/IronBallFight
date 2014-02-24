@@ -8,8 +8,9 @@
 #include "../GLHeader.h"
 #include "Updater3D.h"
 #include "Renderer3D.h"
-#include "SceneUtilities.h"
 #include "Utilities/FPSCounter.h"
+#include "Utilities/OBJLoader.h"
+#include "Shader/Shader.h"
 
 using namespace std;
 
@@ -25,17 +26,20 @@ class GameEngine
 		
 		// Construction function
 		//
-		// TODO: Always modify it and add describing comments below this line.
+		// TODO Always modify it and add describing comments below this line.
 		//
 		// Usr comments starts from the following line:
 		GameEngine();
 
 		// Destruction function
 		//
-		// TODO: Always remember to free any used pointers here to avoid memory leakage.
+		// TODO Always remember to free any used pointers here to avoid memory leakage.
 		//
 		// Usr comments starts from the following line:
 		~GameEngine();
+
+		// Initialize the engine
+		void initialize(std::string _runDir);
 
 		// Only use this function as external call for the whole physics engine.
 		// This function serves as the call back function for OpenGL
@@ -51,18 +55,27 @@ class GameEngine
 
 		// System level codes ends here
 		//
-		// TODO: Add any stuff you need to be private below this comment:
+		// TODO Add any stuff you need to be private below this comment:
 		//
 		// Your code goes from here.
+
+		// Initialize global light configuration
+		void initializeLight();
 		
-		// The scene class for the animation
+		// The scene class for the 3D animation
 		Scene3D * m_Scene;
 
-		// The updater class for the animation
+		// The updater class for the 3D animation
 		Updater3D * m_Updater;
 
-		// The renderer of the scene
+		// The renderer of the 3D scene
 		Renderer3D * m_Renderer;
+
+		GLfloat ambient[4] = {0.2, 0.2, 0.2, 1.0};
+		GLfloat position[4] = {0.0, 0.0, 0.0, 1.0};
+		GLfloat mat_diffuse[4] = {0.6, 0.6, 0.6, 1.0};
+		GLfloat mat_specular[4] = {1.0, 1.0, 1.0, 1.0};
+		GLfloat mat_shininess[1] = {50.0};
 	
 };
 
