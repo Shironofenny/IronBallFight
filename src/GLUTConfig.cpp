@@ -50,11 +50,15 @@ void GLUTConfig::g_Display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	if(Keyboard::getInstance().isKeyDown('1'))
+	{
 		glutFullScreen();
+		Mouse::getInstance().refresh();
+	}
 	if(Keyboard::getInstance().isKeyDown('2'))
 	{
 		glutReshapeWindow(960, 540);
 		glutPositionWindow(150, 100);
+		Mouse::getInstance().refresh();
 	}
 	if(Keyboard::getInstance().isKeyDown(27))
 		exit(0);
@@ -95,20 +99,31 @@ void GLUTConfig::g_KeyboardReleased( unsigned char key, int x, int y )
 	Keyboard::getInstance().updateRelease(key);
 }
 
+void GLUTConfig::g_Mouse(int button, int state, int x, int y)
+{
+	Mouse::getInstance().updateActive(button, state, x, y);
+}
+
 void GLUTConfig::g_MouseMove(int x, int y)
 {
 	Mouse::getInstance().updatePassive(x, y);
 	if(Mouse::getInstance().isOnBoundary())
+	{
 		glutWarpPointer(ConstantHandler::getInstance().mousePositionX, \
 										ConstantHandler::getInstance().mousePositionY);
+		Mouse::getInstance().refreshPositionInfo();
+	}
 }
 
 void GLUTConfig::g_MousePassive(int x, int y)
 {
 	Mouse::getInstance().updatePassive(x, y);
 	if(Mouse::getInstance().isOnBoundary())
+	{
 		glutWarpPointer(ConstantHandler::getInstance().mousePositionX, \
 										ConstantHandler::getInstance().mousePositionY);
+		Mouse::getInstance().refreshPositionInfo();
+	}
 }
 
 void GLUTConfig::g_Run()
@@ -119,6 +134,8 @@ void GLUTConfig::g_Run()
 	glutIdleFunc(g_Display);
 	glutKeyboardFunc(g_KeyboardPressed);
 	glutKeyboardUpFunc(g_KeyboardReleased);
+
+	glutMouseFunc(g_Mouse);
 	glutMotionFunc(g_MouseMove);
 	glutPassiveMotionFunc(g_MousePassive);
 

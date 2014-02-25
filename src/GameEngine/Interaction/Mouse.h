@@ -17,7 +17,7 @@ class Mouse
 		}
 
 		// Update function for active mouse reaction
-		void updateActive();
+		void updateActive(int _button, int _state, int _x, int _y);
 
 		// Update function for passive mouse reaction
 		void updatePassive(int _x, int _y);
@@ -42,6 +42,18 @@ class Mouse
 		
 		// Get the difference between now and center of the screen on Y
 		int getDeviationY() const;
+
+		// Refresh all mouse states
+		void refresh();
+
+		// Refresh only position info
+		void refreshPositionInfo();
+
+		// Return whether the left botton is pressed
+		bool isMouseLeftDown();
+		
+		// Return whether the right botton is pressed
+		bool isMouseRightDown();
 	
 	private:
 
@@ -54,6 +66,9 @@ class Mouse
 		// Prevent any external implementaion
 		Mouse(Mouse const &);
 		void operator = (Mouse const &);
+
+		// The flags for restoring mouse states
+		bool m_State[5];
 
 		// Flag to prevent large deviation for first update
 		bool m_IsFirstUpdate;

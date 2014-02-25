@@ -28,7 +28,9 @@ class Ballon : public Sprite
 		void update(double dt);
 
 		// Calculate the collision with a ray
-		bool calculateRayCollision(Vector const & _source, Vector const & _direction);
+		// Return the distance of the ballon and the ray source
+		// This could be used to further determine which ballon is collided
+		double calculateRayCollision(Vector const & _source, Vector const & _direction);
 
 		// Decrease the remaining life of this ballon
 		void hurt(double dt);
@@ -39,16 +41,20 @@ class Ballon : public Sprite
 		// Render function
 		void render();
 
+		// Get the handle of m_IsRayColliding
+		bool & getRayColliding();
+		bool const & getRayColliding() const;
+
 	protected:
 
 		// The radius of the planet
 		double m_Radius;
 
 		// The color of the ballon
-		GLfloat color[4];
+		GLfloat m_Color[4];
 
 		// If this ballon is collided with an ray.
-		bool m_IsRayColling;
+		bool m_IsRayColliding;
 
 		// The life of the ballon
 		float m_RemainingLife;
