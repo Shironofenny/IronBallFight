@@ -21,6 +21,9 @@ ConstantHandler::ConstantHandler():
 	lightSource[0] = 0.0;
 	lightSource[1] = 0.0;
 	lightSource[2] = 0.0;
+
+	ballonRadius = 1.0;
+	ballonDamagePerSecond = 0.6;
 }
 
 void ConstantHandler::restoreWindowSize(int x, int y)

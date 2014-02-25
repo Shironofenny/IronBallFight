@@ -25,10 +25,14 @@ class ConstantHandler
 		// The relative position of the iron ball
 		Vector ironBallPosition;
 
+		// Camera configs
 		double cameraSpeed;
 
 		double cameraRotateZ;
+		
+		double virtualRotationRadius;
 
+		// Window configs
 		int windowSizeX;
 
 		int windowSizeY;
@@ -37,8 +41,6 @@ class ConstantHandler
 
 		int mousePositionY;
 
-		double virtualRotationRadius;
-
 		// Shader configs
 		std::string vertexShader;
 
@@ -46,6 +48,11 @@ class ConstantHandler
 
 		// The position of the light source
 		Vector lightSource;
+
+		// Ballon configs
+		double ballonRadius;
+
+		float ballonDamagePerSecond;
 
 	private:
 

@@ -30,21 +30,26 @@ void Renderer3D::Render()
 		camera.setup();
 		
 		// Draw all the ballons
-		GLfloat colorFirst[] = {0.5, 0.5, 0., 1.}; 
-		GLfloat colorSecond[] = {0, 0.5, 0.5, 1.}; 
+		GLfloat colorFirst[] = {1., 0., 0., 1.}; 
+		GLfloat colorSecond[] = {0, 1., 0., 1.}; 
+		GLfloat colorThird[] = {0, 0., 1., 1.}; 
 
 		for(vector <Ballon>::size_type i = 0; i < ballons.size(); i++)
 		{
 			//glMaterialfv(GL_FRONT, GL_DIFFUSE, selectedColor);
-			if(i <= 9) 
+			if(i <= 11) 
 			{
 				glColor4fv(colorFirst);
 				glMaterialfv(GL_FRONT, GL_DIFFUSE, colorFirst);
 			}
-			else 
+			else if (i <= 23)
 			{
 				glColor4fv(colorSecond);
 				glMaterialfv(GL_FRONT, GL_DIFFUSE, colorSecond);
+			}
+			else
+			{
+				glColor4fv(colorThird);
 			}
 
 			Shader::getInstance().attributeVec3("lightSource",\

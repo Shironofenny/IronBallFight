@@ -1,0 +1,127 @@
+% English Version of fe-i-tex
+
+\documentclass{article}
+
+% Set margins:
+\hoffset = -0.9in
+\voffset = -0.75in
+\textheight = 680pt
+\textwidth = 470pt
+
+% Mathematic libraries
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\erf}{\mathrm{erf}}
+
+% Symbol libraries
+\usepackage{textcomp}
+
+% Code display library
+\usepackage{mylistings}
+
+% Graphic libraries
+\usepackage{float}
+\usepackage{graphicx}
+
+% Use self-def section type
+\usepackage[compact]{titlesec}
+\titleformat{\section}{\Large\rmfamily\scshape}{}{0.5em}{}[\titlerule \vspace{7pt}]
+
+\usepackage{xcolor}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=false,
+	linkbordercolor=blue,
+	pdfborderstyle={/S/U/W 1}
+}
+
+% Enumerate label libraries
+\usepackage{enumerate}
+ 
+% Font package
+\usepackage{times}
+
+\usepackage{setspace}
+
+% TODO: Add your article here.
+
+\begin{document}
+
+\title{{\scshape Iron Ball Fight \\ {\large Report, manual and documentation}}}
+\author{Yihan Zhang (Uni:yz2567)}
+\maketitle
+
+\section{Introduction}
+
+Iron ball fight is a 3D shooting game which is still in continuous developing. 
+At the time of submission, the game only implemented basic game logics. 
+That is, you can shoot off geometric objects in the game space. 
+You can follow further changes in my \href{https://github.com/Shironofenny/IronBallFight}{github repository} .
+
+\section{Installation}
+
+	\begin{enumerate}
+	
+		\item For Linux user, if you have bash installed in your machine, you can just move to the direction and type:
+
+			{\hspace{5pt}\ttfamily ./.install}
+
+			and every thing will be fine. 
+			If you can't run this script, or feel unsafe about what it is doing, you could follow general installation described in part 2.
+
+		\item The general installation method should work for all Linux and Mac systems. 
+			Firstly, you need to build up all the directories that is essential for cmake to run. At root directory, type:
+
+			{\hspace{5pt} \ttfamily mkdir ./bin ./bin/shader ./bin/obj ./build}
+
+			Secondly, run cmake:
+
+			{\hspace{5pt}\ttfamily cd build}
+			
+			{\hspace{5pt}\ttfamily cmake ..}
+
+			Finally, you could find the excutable at:
+			
+			{\hspace{5pt}\ttfamily ./bin/IronBallFight}
+
+			Just run it and have fun!
+
+	\end{enumerate}
+
+\section{About the Game}
+
+\section{Code description}
+
+	\begin{enumerate}
+		
+		\item {\bf Implemented features:}
+
+			\begin{itemize}
+				\item Full 3D camera movement.
+					Using a quaternion based method, you can move the camera freely in a 3D space, including any kind of translation and rotation. 
+					Thus view from any position at any angle is always approachable.
+				
+				\item Shader based basic light effect.
+					The light effect inside the game are fully implemented by shaders using GLSL.
+					It makes the game looks more realistic and fantastic.
+					Although the light source is currently invisible, you could just imagine it is emitting ultraviolet rays, and all geometries are made of some kind of material that changing this ray into visible lights.
+
+				\item Collision detection with simple geometry.
+					The game could successfully detect the collision between your bullet (which is, sadly, invisible) and geometries in the space.
+					All shooting events are based on this simple algorithm.
+
+				\item External geometry loader.
+					This function comes from a slightly modified external codes (you could find the source in {\bf Reference and External Sources} part of this section).
+					This makes it possible to load the geometry I created in Blender.
+
+			\end{itemize}
+
+		\item {\bf Reference and External Sources:}
+
+	\end{enumerate}
+
+\end{document}

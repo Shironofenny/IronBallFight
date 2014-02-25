@@ -26,6 +26,14 @@ void Shader::initialize(std::string _runDir)
 	
 	glLinkProgram(m_ProgramHandle);
 	glUseProgram(m_ProgramHandle);
+
+	attributeInt("isCollided", 0);
+}
+
+void Shader::attributeInt(char const * _name, int const _value)
+{
+	GLint location = glGetAttribLocation(m_ProgramHandle, _name);
+	glVertexAttribI1i(location, _value);
 }
 
 void Shader::attributeFloat(char const * _name, GLfloat const _value)

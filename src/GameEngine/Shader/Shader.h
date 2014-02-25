@@ -23,6 +23,9 @@ class Shader
 		// Create the program and link two corresponding shaders
 		void initialize(std::string _runDir);
 
+		// Attribute int value to shader
+		void attributeInt(char const * _name, int const _value);
+
 		// Attribute float value to shader
 		void attributeFloat(char const * _name, GLfloat const _value);
 		

@@ -29,6 +29,7 @@ class Sprite
 
 	protected:
 
+		// The position of the sprite
 		Vector m_Position;
 };
 

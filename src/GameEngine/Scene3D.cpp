@@ -15,15 +15,21 @@ void Scene3D::createScene()
 {
 	m_IronBall.initialize();
 	double radius = 10;
-	for(int i = 0; i <= 9; i++)
+	for(int i = 0; i <= 11; i++)
 	{
-		Vector ballonPosition(radius * cos(M_PI / 5 * i), 0., radius * sin(M_PI / 5 * i));
+		Vector ballonPosition(radius * cos(M_PI / 6 * i + M_PI / 12), 0., radius * sin(M_PI / 6 * i + M_PI / 12));
 		Ballon ballonTemp(ballonPosition);
 		m_Ballons.push_back(ballonTemp);
 	}
-	for(int i = 0; i <= 9; i++)
+	for(int i = 0; i <= 11; i++)
 	{
-		Vector ballonPosition(0., radius * cos(M_PI / 5 * i), radius * sin(M_PI / 5 * i));
+		Vector ballonPosition(0., radius * cos(M_PI / 6 * i + M_PI / 12), radius * sin(M_PI / 6 * i + M_PI / 12));
+		Ballon ballonTemp(ballonPosition);
+		m_Ballons.push_back(ballonTemp);
+	}
+	for(int i = 0; i <= 11; i++)
+	{
+		Vector ballonPosition(radius * cos(M_PI / 6 * i + M_PI / 12), radius * sin(M_PI / 6 * i + M_PI / 12), 0.);
 		Ballon ballonTemp(ballonPosition);
 		m_Ballons.push_back(ballonTemp);
 	}
