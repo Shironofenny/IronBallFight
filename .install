@@ -32,6 +32,10 @@ if [ ! -d ./shader ]; then
 	mkdir shader
 fi
 
+if [ ! -d ./obj ]; then
+	mkdir obj
+fi
+
 cd ../build
 
 if [ $# -ne 0 ]; then
