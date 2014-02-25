@@ -17,15 +17,15 @@ void Scene3D::createScene()
 	double radius = 10;
 	for(int i = 0; i <= 9; i++)
 	{
-		Vector planetPosition(radius * cos(M_PI / 5 * i), 0., radius * sin(M_PI / 5 * i));
-		Planet planetTemp(planetPosition);
-		m_Planets.push_back(planetTemp);
+		Vector ballonPosition(radius * cos(M_PI / 5 * i), 0., radius * sin(M_PI / 5 * i));
+		Ballon ballonTemp(ballonPosition);
+		m_Ballons.push_back(ballonTemp);
 	}
 	for(int i = 0; i <= 9; i++)
 	{
-		Vector planetPosition(0., radius * cos(M_PI / 5 * i), radius * sin(M_PI / 5 * i));
-		Planet planetTemp(planetPosition);
-		m_Planets.push_back(planetTemp);
+		Vector ballonPosition(0., radius * cos(M_PI / 5 * i), radius * sin(M_PI / 5 * i));
+		Ballon ballonTemp(ballonPosition);
+		m_Ballons.push_back(ballonTemp);
 	}
 }
 
@@ -34,9 +34,9 @@ Camera & Scene3D::getCamera()
 	return m_Camera;
 }
 
-vector <Planet> & Scene3D::getPlanets()
+vector <Ballon> & Scene3D::getBallons()
 {
-	return m_Planets;
+	return m_Ballons;
 }
 
 IronBall & Scene3D::getIronBall()

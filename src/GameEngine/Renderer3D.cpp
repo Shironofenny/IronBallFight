@@ -19,7 +19,7 @@ void Renderer3D::Render()
 {
 	Camera & camera = m_Scene.getCamera();
 	IronBall & ironBall = m_Scene.getIronBall();
-	vector <Planet> & planets = m_Scene.getPlanets();
+	vector <Ballon> & ballons = m_Scene.getBallons();
 
 	// In order to trace the iron ball, we need to set this as the rotation center
 	ironBall.setRotationCenter();
@@ -29,11 +29,11 @@ void Renderer3D::Render()
 		// Then set up camera
 		camera.setup();
 		
-		// Draw all the planets
+		// Draw all the ballons
 		GLfloat colorFirst[] = {0.5, 0.5, 0., 1.}; 
 		GLfloat colorSecond[] = {0, 0.5, 0.5, 1.}; 
 
-		for(vector <Planet>::size_type i = 0; i < planets.size(); i++)
+		for(vector <Ballon>::size_type i = 0; i < ballons.size(); i++)
 		{
 			//glMaterialfv(GL_FRONT, GL_DIFFUSE, selectedColor);
 			if(i <= 9) 
@@ -53,7 +53,7 @@ void Renderer3D::Render()
 														camera.getCameraCoordinateY(), \
 														camera.getCameraCoordinateZ()));
 
-			planets[i].render();
+			ballons[i].render();
 		}
 
 	glPopMatrix();

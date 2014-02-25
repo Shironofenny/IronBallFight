@@ -52,3 +52,4 @@ add_executable(IronBallFight ${IBF_SOURCES})
 target_link_libraries(IronBallFight ${IBF_LIBRARIES})
 
 file (COPY "./src/GameEngine/Shader/vertex.shader" "./src/GameEngine/Shader/fragment.shader" DESTINATION ../bin/shader)
+file (COPY "./src/GameEngine/Obj/IronBall.obj" "./src/GameEngine/Obj/Ears.obj" "./src/GameEngine/Obj/Motor.obj" DESTINATION ../bin/obj)

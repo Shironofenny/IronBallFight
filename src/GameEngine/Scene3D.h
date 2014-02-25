@@ -6,7 +6,7 @@
 
 #include "Scene.h"
 #include "Camera.h"
-#include "./Universe/Planet.h"
+#include "./Universe/Ballon.h"
 #include "./Universe/IronBall.h"
 
 using namespace std;
@@ -41,8 +41,8 @@ class Scene3D : public Scene
 		// Get a copy of the iron ball
 		IronBall & getIronBall();
 
-		// Get a copy of all the planets
-		vector <Planet> & getPlanets();
+		// Get a copy of all the ballons
+		vector <Ballon> & getBallons();
 
 		// Return the position of the light source
 		Vector & getLightPosition();
@@ -55,8 +55,8 @@ class Scene3D : public Scene
 		// The iron ball you are controling
 		IronBall m_IronBall;
 
-		// The vector for all the planets around you
-		vector <Planet> m_Planets;
+		// The vector for all the ballons around you
+		vector <Ballon> m_Ballons;
 
 		// The position of the light source
 		Vector m_LightSource;

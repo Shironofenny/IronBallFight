@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This file is used to quick generate excutable "IronBallFight"
+# Written by Fenny Zhang
+
+# Check before use, as it is environmentally dependent.
+# I can only guarantee this works well on my computer.
+# Variable named after FE_ as they are all used by Fenny. I shall free them. 
+
+# Check directory
+FE_LastDir=${PWD##*/}
+
+if [ $FE_LastDir != "IronBallFight" ]; then
+	echo "Warning: You are not running this script under project directory."
+fi
+	
+if [ ! -f ./CMakeLists.txt ]; then
+	echo "Error: Cmake file not found!"
+fi
+
+if [ ! -d ./build ]; then
+	mkdir build
+fi
+
+if [ ! -d ./bin ]; then
+	mkdir bin
+fi
+
+cd bin
+
+if [ ! -d ./shader ]; then
+	mkdir shader
+fi
+
+cd ../build
+
+if [ $# -ne 0 ]; then
+	if [ $1 == "-r" ]; then
+		rm -rf *
+	fi
+fi
+
+sudo cmake ..
+make
+
+unset FE_LastDir

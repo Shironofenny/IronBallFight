@@ -17,7 +17,7 @@ void main()
 	vec3 distance = lightSource - (vertexNew.xyz / vertexNew.w);
 	vec3 dv = normalize(distance);
 
-	float attenuation = 0.5 * (dv.x + dv.y + dv.z) / (distance.x + distance.y + distance.z);
+	float attenuation = 1.0 * (dv.x + dv.y + dv.z) / (distance.x + distance.y + distance.z);
 
 	spotlightIntensity = dot(distance, normalNew) * attenuation;
 	
