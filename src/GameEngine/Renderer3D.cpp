@@ -20,6 +20,8 @@ void Renderer3D::Render()
 	Camera & camera = m_Scene.getCamera();
 	IronBall & ironBall = m_Scene.getIronBall();
 	vector <Ballon> & ballons = m_Scene.getBallons();
+	Planet & earth = m_Scene.getEarth();
+	Planet & moon = m_Scene.getMoon();
 
 	// In order to trace the iron ball, we need to set this as the rotation center
 	ironBall.setRotationCenter();
@@ -28,6 +30,9 @@ void Renderer3D::Render()
 		
 		// Then set up camera
 		camera.setup();
+
+		earth.render();
+		moon.render();
 
 		for(vector <Ballon>::size_type i = 0; i < ballons.size(); i++)
 		{

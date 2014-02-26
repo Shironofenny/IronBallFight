@@ -54,6 +54,9 @@ class ConstantHandler
 
 		float ballonDamagePerSecond;
 
+		// The time that planet mesh shall be refined
+		int planetMeshRefineTime;
+
 	private:
 
 		// Private constructor

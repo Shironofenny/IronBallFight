@@ -151,6 +151,7 @@ void Camera::globalRotation(double dt)
 	m_CameraDirectionX.normalize();
 	m_CameraDirectionY.normalize();
 	m_CameraDirectionZ.normalize();
+	std::cout<<"Camera 154 OK!"<<std::endl;
 
 	Quaternion dqy = Quaternion(cos(angleY/2), m_CameraDirectionX * sin(angleY/2));
 

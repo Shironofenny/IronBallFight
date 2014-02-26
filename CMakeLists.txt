@@ -23,7 +23,7 @@ endif ()
 set (EXECUTABLE_OUTPUT_PATH ../bin)
 
 # add compiler flags
-set (CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+set (CMAKE_CXX_FLAGS "-ggdb -std=c++11 ${CMAKE_CXX_FLAGS}")
 
 # add header files and source files (as there are some file I don't want to compile, I did not use recursive mode)
 file (GLOB IBF_HEADERS "./src/*.h" "./src/GameEngine/*.h" "./src/GameEngine/Utilities/*.h" "./src/GameEngine/Interaction/*.h" "./src/GameEngine/Universe/*.h" "./src/GameEngine/Shader/*.h")
@@ -53,3 +53,4 @@ target_link_libraries(IronBallFight ${IBF_LIBRARIES})
 
 file (COPY "./src/GameEngine/Shader/vertex.shader" "./src/GameEngine/Shader/fragment.shader" DESTINATION ../bin/shader)
 file (COPY "./src/GameEngine/Obj/IronBall.obj" "./src/GameEngine/Obj/Ears.obj" "./src/GameEngine/Obj/Motor.obj" DESTINATION ../bin/obj)
+file (COPY "./src/GameEngine/Texture/earth.bmp" "./src/GameEngine/Texture/moon.bmp" DESTINATION ../bin/texture)

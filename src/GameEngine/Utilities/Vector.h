@@ -83,4 +83,7 @@ std::ostream & operator << (std::ostream & output, Vector const & _v);
 // Override gltranslate function:
 void glTranslatev(Vector const & v);
 
+// Override glVertex function:
+void glVertex3v(Vector const & v);
+
 #endif

@@ -22,7 +22,8 @@ void GameEngine::initialize(std::string _runDir)
 {
 	//initializeLight();
 	Shader::getInstance().initialize(_runDir);
-	OBJLoader::getInstance().initalize(_runDir);
+	OBJLoader::getInstance().initialize(_runDir);
+	TextureLoader::getInstance().initialize(_runDir);
 	m_Scene->createScene();
 }
 

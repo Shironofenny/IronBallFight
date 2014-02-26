@@ -17,7 +17,7 @@ class OBJLoader
 			return instance;
 		}
 
-		void initalize(std::string _runDir);
+		void initialize(std::string _runDir);
 
 		// Load the obj file. Return the number in display list.
 		int loadOBJ(std::string const & _filename);

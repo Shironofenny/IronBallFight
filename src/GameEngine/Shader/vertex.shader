@@ -1,13 +1,24 @@
 # version 130
 
+// The point light source
 attribute vec3 lightSource;
 
+// Collided switch and light sources
 attribute int isCollided;
 attribute vec3 raySource;
 attribute vec3 rayDirection;
 
+// Texture switch
+attribute int isTextured;
+
+// Send point light information to fragment shader
 varying float spotlightIntensity;
+
+// Send ray information to fragment shader
 varying float rayIntensity;
+
+// Send texture switch to fragment shader
+varying float isRenderTexture;
 
 vec4 vertexNew;
 vec3 normalNew;
@@ -56,5 +67,18 @@ void main()
 	{
 		rayIntensity = 0.0;
 	}
+	
+	// Set up texture
+	
+	if(isTextured != 0)
+	{
+		isRenderTexture = 1.0;
+		gl_TexCoord[0] = gl_MultiTexCoord0;
+	}
+	else
+	{
+		isRenderTexture = 0.0;
+	}
+
 	gl_FrontColor = gl_Color;
 }

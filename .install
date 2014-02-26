@@ -36,6 +36,10 @@ if [ ! -d ./obj ]; then
 	mkdir obj
 fi
 
+if [ ! -d ./texture ]; then
+	mkdir texture
+fi
+
 cd ../build
 
 if [ $# -ne 0 ]; then

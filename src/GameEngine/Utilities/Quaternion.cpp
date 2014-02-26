@@ -63,8 +63,6 @@ void Quaternion::toMatrix( GLdouble Q[4][4] ) const
 
 double Quaternion::getAngle() const
 {
-	assert(m_Scalar <= 1.);
-	assert(m_Scalar >= -1.);
 	return acos(m_Scalar) * 2;
 }
 

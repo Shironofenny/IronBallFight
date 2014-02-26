@@ -2,6 +2,10 @@
 #define __PLANET_H__
 
 #include "../Sprite.h"
+#include "../Utilities/TextureLoader.h"
+#include "../Shader/Shader.h"
+
+#include <queue>
 
 class Planet : public Sprite
 {
@@ -19,6 +23,13 @@ class Planet : public Sprite
 		// Destructor
 		~Planet();
 
+		// Initialize the shape of the planet.
+		// Write the shape handle into ms_Shape
+		static void initializeShape();
+
+		// Set the texture of the planet
+		void setTexture(GLuint _texture);
+
 		// Update function
 		void update(double dt);
 
@@ -29,6 +40,18 @@ class Planet : public Sprite
 
 		// The radius of the planet
 		double m_Radius;
+
+		// The handle of the texture
+		GLuint m_Texture;
+
+		// The shape handle of the planet
+		static GLuint ms_Shape;
+};
+
+// The triangle used to get the sphere mesh
+struct Triangle
+{
+	int vertex[3];
 };
 
 #endif

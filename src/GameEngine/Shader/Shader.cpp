@@ -28,6 +28,7 @@ void Shader::initialize(std::string _runDir)
 	glUseProgram(m_ProgramHandle);
 
 	attributeInt("isCollided", 0);
+	attributeInt("isTextured", 0);
 }
 
 void Shader::attributeInt(char const * _name, int const _value)

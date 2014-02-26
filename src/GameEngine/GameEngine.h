@@ -10,6 +10,7 @@
 #include "Renderer3D.h"
 #include "Utilities/FPSCounter.h"
 #include "Utilities/OBJLoader.h"
+#include "Utilities/TextureLoader.h"
 #include "Shader/Shader.h"
 
 using namespace std;

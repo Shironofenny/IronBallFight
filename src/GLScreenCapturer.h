@@ -3,14 +3,10 @@
  * author: Changxi Zheng (cxz@cs.columbia.edu)
  */
 #ifndef GL_SCREEN_CAPTURER_H
-#   define GL_SCREEN_CAPTURER_H
+#define GL_SCREEN_CAPTURER_H
 
 #include <stdint.h>
-#if defined(__APPLE__) || defined(MACOSX)
-#   include <OpenGL/gl.h>
-#else
-#   include <GL/glut.h>
-#endif
+#include "GLHeader.h"
 
 class GLScreenCapturer
 {

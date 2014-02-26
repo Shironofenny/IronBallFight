@@ -13,7 +13,7 @@ OBJLoader::~OBJLoader()
 
 }
 
-void OBJLoader::initalize(std::string _runDir)
+void OBJLoader::initialize(std::string _runDir)
 {
 	unsigned addtionPath = _runDir.find_last_of('/');
 	m_RunDir = _runDir.substr(0, addtionPath);

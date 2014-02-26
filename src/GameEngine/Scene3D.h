@@ -6,6 +6,7 @@
 
 #include "Scene.h"
 #include "Camera.h"
+#include "./Universe/Planet.h"
 #include "./Universe/Ballon.h"
 #include "./Universe/IronBall.h"
 
@@ -44,6 +45,12 @@ class Scene3D : public Scene
 		// Get a copy of all the ballons
 		vector <Ballon> & getBallons();
 
+		// Get a copy of the planet
+		Planet & getEarth();
+
+		// Get a copy of the planet
+		Planet & getMoon();
+
 		// Return the position of the light source
 		Vector & getLightPosition();
 
@@ -57,6 +64,12 @@ class Scene3D : public Scene
 
 		// The vector for all the ballons around you
 		vector <Ballon> m_Ballons;
+
+		// The planet of the scene
+		Planet m_Earth;
+
+		// The planet of the scene
+		Planet m_Moon;
 
 		// The position of the light source
 		Vector m_LightSource;

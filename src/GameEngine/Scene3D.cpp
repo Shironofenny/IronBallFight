@@ -3,6 +3,8 @@
 Scene3D::Scene3D():
 	Scene(), 
 	m_IronBall(), 
+	m_Earth(50.0, Vector(0., 0., -80.)), 
+	m_Moon(10.0, Vector(-50., 0., -40.)), 
 	m_LightSource(ConstantHandler::getInstance().lightSource)
 {
 }
@@ -13,7 +15,12 @@ Scene3D::~Scene3D()
 
 void Scene3D::createScene()
 {
+	// Initialize the shape of the planet here
+	Planet::initializeShape();
+
 	m_IronBall.initialize();
+	m_Earth.setTexture(TextureLoader::getInstance().loadTexture("./texture/earth.bmp"));
+	m_Moon.setTexture(TextureLoader::getInstance().loadTexture("./texture/moon.bmp"));
 	double radius = 10;
 	
 	// The color of the ballons
@@ -57,6 +64,16 @@ vector <Ballon> & Scene3D::getBallons()
 IronBall & Scene3D::getIronBall()
 {
 	return m_IronBall;
+}
+
+Planet & Scene3D::getEarth()
+{
+	return m_Earth;
+}
+
+Planet & Scene3D::getMoon()
+{
+	return m_Moon;
 }
 
 Vector & Scene3D::getLightPosition()

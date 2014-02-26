@@ -29,7 +29,7 @@ double Vector::norm() const
 void Vector::normalize()
 {
 	double normalized = norm();
-	assert(normalized == 0);
+	assert(normalized != 0);
 	*this = (*this)/normalized;
 }
 
@@ -142,4 +142,10 @@ std::ostream & operator << (std::ostream & output, Vector const & _v)
 void glTranslatev(Vector const & v)
 {
 	glTranslatef(v[0], v[1], v[2]);
+}
+
+
+void glVertex3v(Vector const & v)
+{
+	glVertex3f(v[0], v[1], v[2]);
 }

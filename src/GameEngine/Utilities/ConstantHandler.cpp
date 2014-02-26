@@ -24,6 +24,8 @@ ConstantHandler::ConstantHandler():
 
 	ballonRadius = 1.0;
 	ballonDamagePerSecond = 1.5;
+	
+	planetMeshRefineTime = 6;
 }
 
 void ConstantHandler::restoreWindowSize(int x, int y)

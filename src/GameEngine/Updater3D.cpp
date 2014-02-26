@@ -12,7 +12,7 @@ void Updater3D::Update(double dt)
 	vector <Ballon> & ballons = m_Scene.getBallons();
 
 	camera.update(dt);
-	
+
 	for (vector <Ballon>::size_type i = 0; i < ballons.size(); i++)
 	{
 		ballons[i].update(dt);

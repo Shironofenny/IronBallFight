@@ -1,8 +1,15 @@
 #include "GLUTConfig.h"
 #include "./GameEngine/Camera.h"
+#include "GLScreenCapturer.h"
 
 extern char const * g_Name;
 extern GameEngine g_Engine;
+
+#define IBF_SCREEN_CAPTURE
+#ifdef IBF_SCREEN_CAPTURE
+GLScreenCapturer capture("./bin/video/sccap");
+bool flip = false;
+#endif
 
 void GLUTConfig::g_InitializeEngine(int * _argcp, char ** _argv, int _wWidth, int _wHeight, int _wPosX, int _wPosY)
 {
@@ -68,7 +75,12 @@ void GLUTConfig::g_Display()
 		g_Engine.run();
 
 	glPopMatrix();
-	
+
+#ifdef IBF_SCREEN_CAPTURE
+	if(flip) capture.capture();
+	else flip = !flip;
+#endif
+
 	glFlush();
 	glutSwapBuffers();
 }

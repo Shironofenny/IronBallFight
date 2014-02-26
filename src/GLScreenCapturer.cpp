@@ -2,15 +2,17 @@
 #include <cstring>
 #include <cstdarg>
 #include <cstdlib>
-#if defined(__APPLE__) || defined(MACOSX)
-#   include <GLUT/glut.h>
-#else
-#   include <GL/glut.h>
-#endif
+
+#include "GLHeader.h"
+
 #include <fstream>
 #include "utils/macros.h"
 
-static char _filename[GLScreenCapturer::MAX_FILE_NAME_LEN];
+#include <sstream>
+using namespace std;
+
+// Modified by Yihan Zhang, as this the string part doesn't work on my computer
+//static char _filename[GLScreenCapturer::MAX_FILE_NAME_LEN];
 
 GLScreenCapturer::GLScreenCapturer(const char* name):m_cnt(0), 
         m_buffer(NULL), m_bufSize(0)
@@ -25,8 +27,11 @@ GLScreenCapturer::GLScreenCapturer(const char* name):m_cnt(0),
 
 int GLScreenCapturer::capture()
 {
-    snprintf(_filename, MAX_FILE_NAME_LEN, m_formatStr, m_cnt++);
-    return capture(_filename);
+		stringstream str;
+		string _filename;
+		str<<m_formatStr<<m_cnt++;
+		str>>_filename;
+    return capture(_filename.c_str());
 }
 
 int GLScreenCapturer::capture(const char* file)
